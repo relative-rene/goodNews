@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  #api/ urls and defualt to json
+  scope '/api', defaults: { format: :json } do
+    #since we're just doing a json api we don't need new and edit to hold forms for our user
+    resources :fights, except: [:new, :edit] do
+      resources :fighters, except: [:new, :edit]
+    end
+  end
+
   root 'site#angular'
 
   get '*path', to: 'site#angular'
